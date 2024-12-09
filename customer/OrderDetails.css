@@ -1,0 +1,541 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: url('image/home.png') no-repeat center center;
+    background-size: cover;  /* Ensure the image covers the entire body */
+    background-attachment: fixed;  /* Make the background image fixed */
+    background-color: #f1f1f1;  /* Fallback color */
+    min-height: 100vh;  /* Ensures the body takes up the full height of the viewport */
+    overflow: auto;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+}
+
+/* General product container styles */
+.product-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next row if needed */
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: flex-start;
+    border-radius: 10px;
+    background-color: #f1f1f3;
+    width: 50%; /* Default width */
+    max-height: 285px; /* Allow height to adjust automatically */
+    overflow-y: auto; /* Allows vertical scrolling if the content exceeds the container height */
+    float: left; /* Positions the container on the left side */
+    margin-left: 20px; /* Add some spacing from the left edge */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+}
+
+/* Center the product container on smaller screens */
+@media (max-width: 768px) {
+    .product-container {
+        width: 80%; /* Adjust the width for smaller screens */
+        margin: 0 auto; /* Center the container horizontally */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-container {
+        width: 95%; /* Adjust the width for very small screens */
+        margin: 0 auto; /* Center the container horizontally */
+    }
+}
+
+
+/* Hide scrollbar for modern browsers */
+.product-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Edge */
+}
+
+/* Order Header */
+.order-header {
+    display: flex;
+    justify-content: center; /* Keep items centered horizontally */
+    align-items: center; /* Center the items vertically */
+    padding: 20px; /* Adds space around */
+    gap: 0px; /* No gap between elements */
+    margin-left: 200px;
+}
+
+/* Order Header Adjustments */
+.order-header h2, .user-info {
+    margin: 0; /* Remove margin between elements */
+    padding: 0; /* Remove padding to eliminate spacing */
+}
+
+/* User Info Styles */
+.user-info {
+    font-size: 1rem;
+    background-color: #e9e9e9;
+    width: 350px;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer; /* Indicate it's clickable */
+    padding: 10px; /* Add some padding to the container */
+}
+
+/* Adjust layout for smaller screens (tablet and mobile) */
+@media (max-width: 768px) {
+    .order-header {
+        flex-direction: column; /* Stack items vertically */
+        justify-content: flex-start; /* Align items to the start */
+        margin-left: 0; /* Remove the margin */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .order-header h2, .user-info {
+        margin: 0; /* Ensure no extra space between h2 and user-info */
+        padding: 0; /* No padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .order-header {
+        padding: 10px; /* Further reduce padding for very small screens */
+    }
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    width: 80%;
+    max-width: 900px; /* Adjust width as needed */
+    margin: 0 auto; /* Center align the main container */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: auto; /* Let content determine height */
+    min-height: 100px; /* Ensure it doesn’t shrink too much */
+    position: relative; /* Ensure internal positioning works */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    overflow: hidden; /* Prevent overflowing content from affecting layout */
+}
+
+
+.order-container h2{
+    align-content: center;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.user-info p {
+    margin: 0;
+    line-height: 1.4;
+    text-align: center; /* Ensure text inside p is centered */
+}
+
+.user-info strong {
+    color: #000;
+}
+
+.user-info-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+    display: block; /* Make the link act like a block element */
+}
+
+
+/* General Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    max-height: 600px;
+    background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    flex-direction: column; /* Stack items vertically */
+}
+
+/* Modal Container */
+.modal-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    position: relative;
+    margin: 2% auto; /* Center the modal vertically */
+    width: 90%; /* Default width for smaller screens */
+    max-width: 900px; /* Max width for desktop */
+    background-color: #f1f1f3;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    position: relative;
+    margin: 0 auto; /* Remove unwanted margins */
+    padding: 40px 30px; /* Add enough padding to create space for the title */
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    max-height: 800px;
+} 
+
+/* Modal Header */
+.modal-title {
+    align-items: flex-start;
+    font-family: 'Fredoka', sans-serif; /* Font style */
+    font-size: 34px; /* Text size */
+    font-weight: bold; /* Thickness of the text */
+    color: #333; /* Text color */
+    margin-top: -50px;
+    margin-bottom: 20px; /* Add spacing below the title */
+    padding: 10px; /* Optional padding inside the title area */
+    border-radius: 8px; /* Optional rounded corners */
+    margin-right: 400px;
+}
+
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    color: black;
+}
+
+.station-info {
+    display: flex; /* Use Flexbox for horizontal alignment */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: space-between; /* Distribute items with space between */
+    align-items: center; /* Vertically center items */
+    gap: 20px; /* Add spacing between items */
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    background-color: #f8f9fa; /* Light background color */
+    padding: 10px 20px; /* Add some padding for better visuals */
+    border-radius: 8px;
+    margin-bottom: 10px; /* Space below the station info */
+    font-size: 16px; /* Adjust text size */
+}
+
+/* For small screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .station-info {
+        display: flex; /* Use Flexbox for layout */
+        flex-direction: column; /* Stack the elements vertically */
+        gap: 0px; /* Remove space between elements */
+        font-family: 'Fredoka', sans-serif;
+        font-weight: bold;
+        background-color: #f8f9fa; /* Light background color */
+        padding: 10px 20px; /* Add padding for better visuals */
+        border-radius: 8px;
+        margin-bottom: 10px; /* Space below the station info */
+        font-size: 16px; /* Adjust text size */
+        width: 100%; /* Ensure full width for the content */
+    }
+
+    .station-info .station-name,
+    .station-info .station-address,
+    .station-info .contact {
+        display: flex; /* Use flexbox for alignment */
+        align-items: center; /* Vertically align items */
+        justify-content: flex-start; /* Align items to the left */
+        margin: 0; /* Remove margins */
+        padding: 0; /* Remove extra padding */
+    }
+
+    .station-name {
+        font-size: 18px; /* Adjust font size for the name */
+        font-weight: bold; /* Make the station name bold */
+    }
+
+    .station-address,
+    .contact {
+        font-size: 16px; /* Adjust text size for address and phone number */
+        color: #555; /* Optional: Set a different color for the address and contact */
+    }
+
+    .station-address p,
+    .contact p {
+        margin: 0; /* Remove default margins */
+        font-size: 16px; /* Optional: Adjust text size */
+    }
+
+    /* Optional: Adjust icon and text alignment */
+    .ri-map-pin-fill,
+    .ri-phone-fill {
+        margin-right: 8px; /* Space between icon and text */
+        font-size: 20px; /* Adjust icon size */
+    }
+}
+
+.station-address {
+    flex: 1; /* Allow this item to take up more space */
+    text-align: center; /* Center text horizontally */
+    display: flex; /* Flexbox for icon and text alignment */
+    align-items: center; /* Vertically align items */
+}
+
+.contact {
+    flex: 1; /* Allow this item to take up more space */
+    text-align: right; /* Align text to the right */
+    display: flex; /* Flexbox for icon and text alignment */
+    align-items: center; /* Vertically align items */
+}
+
+.address {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Vertically center the icon and text */
+    justify-content: flex-start; /* Align the items to the left */
+    text-align: center; /* Optional: Ensure the text is centered */
+    color: #999494;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-top: -5px;
+}
+
+.ri-map-pin-fill,
+.ri-phone-fill {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 20px; /* Adjust icon size */
+}
+
+.ri-map-pin-fill {
+    color: #6ac758;
+    font-size: 25px;
+    margin-right: 1px; /* Add some space between the icon and the text */
+}
+
+.station-address p {
+    margin: 0; /* Remove default margins */
+    font-size: 16px; /* Optional: Adjust text size */
+    margin-left: 10px;
+}
+
+.ri-phone-fill {
+    color: black;
+    font-size: 25px;
+    margin-right: 1px; /* Add some space between the icon and the text */
+}
+
+.contact p {
+    margin: 0; /* Remove default margins */
+    font-size: 16px; /* Optional: Adjust text size */
+}
+
+/* Container for the order details */
+#order-details {
+    display: flex; /* Use Flexbox */
+    flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    justify-content: space-between; /* Equal spacing between columns */
+    gap: 20px; /* Add space between the items */
+    margin-top: 20px;
+}
+
+/* Order Detail Wrapper */
+.order-detail-wrapper {
+    flex: 0 1 auto; /* Allow item to grow and shrink as needed */
+    box-sizing: border-box; /* Include padding in size */
+    padding: 15px; /* Reduced inner padding */
+    border: 1px solid #ddd; /* Border for better visibility */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    text-align: center; /* Center content */
+    display: flex; /* Flexbox for content alignment */
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center; /* Center horizontally */
+    width: 105%; /* Make it responsive */
+    max-width: 300px; /* Reduced max width */
+    margin: 0 auto; /* Center the product container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Product image inside the container */
+.product-image {
+    max-width: 100%; /* Responsive image width */
+    height: auto; /* Keep aspect ratio */
+    max-height: 120px; /* Reduced height */
+    object-fit: contain; /* Preserve image proportions */
+    margin-bottom: 8px; /* Reduced space below image */
+}
+
+/* General typography */
+h3 {
+    font-size: 16px; /* Smaller font size for product name */
+    margin: 8px 0; /* Reduced spacing above and below */
+}
+
+p {
+    font-size: 12px; /* Smaller font size for description */
+    margin: 4px 0; /* Reduced space between paragraphs */
+    color: #555; /* Optional: Text color */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .order-detail-wrapper {
+        flex: 0 1 calc(50% - 20px); /* Two columns for medium screens */
+        max-width: 300px; /* Further reduce max width on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .order-detail-wrapper {
+        flex: 0 1 100%; /* One column for small screens */
+        max-width: 100%; /* Full width on small screens */
+    }
+}
+
+
+/* Style for the title */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Style the total price display */
+#overall-total {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 30px;
+    padding-top: 10px;
+}
+
+/* Hide spinners for number input in Chrome, Edge, and Safari */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 480px) {
+    .order-detail-wrapper {
+        display: flex;
+        flex-direction: row; /* Image and content side by side */
+        align-items: flex-start; /* Align items vertically at the start */
+        gap: 10px; /* Space between image and content */
+    }
+
+    .product-image {
+        width: 80px; /* Adjust image size */
+        height: auto;
+        flex-shrink: 0; /* Prevent image from shrinking */
+    }
+
+    .order-detail-content {
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        justify-content: flex-start; /* Align text at the top */
+        align-items: flex-start; /* Align text to the left */
+        gap: 6px; /* Space between each text element */
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Adjust product name font size */
+    .order-detail-content h3 {
+        margin: 0; /* Remove margin */
+        padding: 0; /* Remove padding */
+        font-size: clamp(14px, 3vw, 18px); /* Responsive font size */
+        font-weight: bold;
+    }
+
+    /* Adjust description font size */
+    .order-detail-content p {
+        margin: 0;
+        padding: 0;
+        font-size: clamp(12px, 2.5vw, 16px); /* Responsive font size */
+        color: #555;
+    }
+
+    /* Adjust quantity font size */
+    .order-detail-content .quantity {
+        font-size: clamp(12px, 2.5vw, 16px); /* Responsive font size */
+    }
+
+    /* Adjust price font size */
+    .order-detail-content .price {
+        font-size: clamp(12px, 2.5vw, 16px); /* Responsive font size */
+    }
+}
+
+/* Style the overall total */
+#overall-total {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 60px;
+}
+
+/* Style the shipping fee and total price */
+#shipping-fee p {
+    margin: 5px 0;
+}
+
+/* Style for the Buy Now button */
+.buy-now-btn {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    background-color: #88d8df; /* Green background */
+    padding: 10px 20px; /* Vertical and horizontal padding */
+    border: none; /* Remove default border */
+    border-radius: 50px; /* Rounded corners */
+    font-size: 24px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    margin-left:700px;
+}
+
+/* Hover effect for the Place Order button */
+.buy-now-btn:hover {
+    background-color: #003f67; /* Darker green on hover */
+    color: white;
+}
+
+@media (max-width: 480px){
+.buy-now-btn {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    background-color: #88d8df; /* Green background */
+    padding: 10px 20px; /* Vertical and horizontal padding */
+    border: none; /* Remove default border */
+    border-radius: 50px; /* Rounded corners */
+    font-size: 24px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    margin-left: 130px;
+}
+}
